@@ -9,14 +9,14 @@ app.use(express.json());
 app.use(
   cors({
     credentials: true,
-    origin: ["http://example.com", "*"], //whitelist of domains
+    origin: ["http://example.com", "*"], // whitelist
   }),
 );
 
 initRoutes(app);
 
 app.listen(PORT, () => {
-  console.log("server running on port ", PORT);
+  console.log("Server is running on port ", PORT);
 });
 
 module.exports = app;

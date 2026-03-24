@@ -1,21 +1,20 @@
 const userRoutes = require("./users");
 
 function initRoutes(app) {
-  // déclaration des routes par métiers.
   app.use("/user", userRoutes);
 
-  app.get(
+  app.use(
     "/",
     (req, res, next) => {
-      //middleware
+      // Middleware
       console.log("middleware 1 homepage");
       next();
     },
     (req, res, next) => {
-      //controller
-      console.log("Controller homepage");
+      // controller
+      console.log("controller 1 homepage");
       res.status(200).json({
-        message: "Bienvenu sur la route d'accueil",
+        message: "Bienvenue sur la route d'accueil",
       });
     },
   );
