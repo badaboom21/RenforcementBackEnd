@@ -32,6 +32,31 @@ const User = (dbInstance, DataTypes) => {
       email: {
         type: DataTypes.STRING(50),
       },
+      role: {
+        type: DataTypes.ENUM(
+          "ADMINISTRATEUR",
+          "GESTIONNAIRE_PORTEFEUILLE",
+          "CHARGE_SUIVI",
+          "CHARGE_CLIENTELE",
+        ),
+        allowNull: false,
+      },
+      token: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+      },
+      refresh_token: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+      },
+      two_step_code: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      active: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+      },
     },
     {
       sequelize: dbInstance,

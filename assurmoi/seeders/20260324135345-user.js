@@ -8,17 +8,21 @@ module.exports = {
       [
         {
           username: "John Doe",
-          password: "Motdepasse123",
+          password: "$2a$10$examplehashedpassword", // hashed password
           firstname: "John",
           lastname: "Doe",
           email: "john.doe@gmail.com",
+          role: "ADMINISTRATEUR",
+          active: true,
         },
         {
           username: "JBoulay",
-          password: "Motdepasse123",
+          password: "$2a$10$examplehashedpassword", // hashed password
           firstname: "Jean",
           lastname: "Boulay",
           email: "jean.boulay@gmail.com",
+          role: "GESTIONNAIRE_PORTEFEUILLE",
+          active: true,
         },
       ],
       {},
@@ -26,6 +30,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete("Users", { password: "Motdepasse123" }, {});
+    await queryInterface.bulkDelete("Users", null, {});
   },
 };

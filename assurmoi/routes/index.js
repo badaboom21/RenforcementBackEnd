@@ -1,7 +1,17 @@
 const userRoutes = require("./users");
+const authRoutes = require("./auth");
+const documentRoutes = require("./documents");
+const sinisterRoutes = require("./sinisters");
+const requestRoutes = require("./requests");
+const historyRoutes = require("./history");
 
 function initRoutes(app) {
-  app.use("/user", userRoutes);
+  app.use("/api/users", userRoutes);
+  app.use("/api/auth", authRoutes);
+  app.use("/api/documents", documentRoutes);
+  app.use("/api/sinisters", sinisterRoutes);
+  app.use("/api/requests", requestRoutes);
+  app.use("/api/history", historyRoutes);
 
   app.use(
     "/",
