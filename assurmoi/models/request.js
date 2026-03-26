@@ -41,6 +41,7 @@ const Request = (dbInstance, DataTypes) => {
         type: DataTypes.ENUM(
           "INITIALIZED",
           "EXPERTISE_PLANNED",
+          "EXPERTISE_EFFECTIVE",
           "EXPERTISE_DONE",
           "CASE1_INTERVENTION_PLANNED",
           "CASE1_PICKUP_PLANNED",

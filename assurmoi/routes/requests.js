@@ -11,6 +11,7 @@ const {
   setDiagnostic,
   planExpertise,
   effectiveExpertise,
+  receiveExpertiseReport,
   planService,
   pickupPlan,
   pickupEffective,
@@ -43,6 +44,7 @@ router.get("/:id/history", getHistoryByRequest);
 // Expertise routes
 router.patch("/:id/expertise/plan", planExpertise);
 router.patch("/:id/expertise/effective", effectiveExpertise);
+router.patch("/:id/expertise/report", receiveExpertiseReport);
 
 // Case1 routes
 router.patch("/:id/case1/service-plan", planService);

@@ -1098,6 +1098,54 @@
         "tags": ["requests", "expertises"]
       }
     },
+    "/api/requests/{id}/expertise/report": {
+      "patch": {
+        "summary": "Recevoir le rapport d'expertise",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "expertise_report_recieved": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "diagnostic": {
+                    "type": "string",
+                    "enum": ["CASE1", "CASE2"]
+                  },
+                  "diagnostic_report_file": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "example": {
+                "expertise_report_recieved": "2026-01-25T10:00:00Z",
+                "diagnostic": "CASE1",
+                "diagnostic_report_file": 1
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Rapport d'expertise reçu"
+          }
+        },
+        "tags": ["requests", "expertises"]
+      }
+    },
     "/api/requests/{id}/case1/service-plan": {
       "patch": {
         "summary": "Ajouter une date de planification de l'intervention",
