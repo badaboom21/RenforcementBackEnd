@@ -38,6 +38,7 @@ const User = (dbInstance, DataTypes) => {
           "GESTIONNAIRE_PORTEFEUILLE",
           "CHARGE_SUIVI",
           "CHARGE_CLIENTELE",
+          "ASSURE",
         ),
         allowNull: false,
       },

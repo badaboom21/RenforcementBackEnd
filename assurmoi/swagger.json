@@ -26,9 +26,8 @@
           {
             "name": "active",
             "in": "query",
-            "description": "true ou false",
             "schema": {
-              "type": "string"
+              "type": "boolean"
             }
           },
           {
@@ -305,8 +304,8 @@
                 }
               },
               "example": {
-                "email": "agent@assurmoi.fr",
-                "mot_de_passe": "password123"
+                "email": "john.doe@gmail.com",
+                "mot_de_passe": "AdminPass123"
               }
             }
           }
@@ -316,7 +315,8 @@
             "description": "Connexion réussie"
           }
         },
-        "tags": ["auth"]
+        "tags": ["auth"],
+        "security": []
       }
     },
     "/api/auth/logout": {
@@ -367,7 +367,8 @@
             "description": "Email envoyé"
           }
         },
-        "tags": ["auth"]
+        "tags": ["auth"],
+        "security": []
       }
     },
     "/api/auth/reset-password": {
@@ -399,7 +400,8 @@
             "description": "Mot de passe réinitialisé"
           }
         },
-        "tags": ["auth"]
+        "tags": ["auth"],
+        "security": []
       }
     },
     "/api/documents": {
@@ -2154,5 +2156,19 @@
         "tags": ["history"]
       }
     }
-  }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ]
 }

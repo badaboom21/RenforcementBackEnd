@@ -8,7 +8,8 @@ module.exports = {
       [
         {
           username: "John Doe",
-          password: "$2a$10$examplehashedpassword", // hashed password
+          password:
+            "$2b$12$ul7bvWpB9uVTFidMpyoxw.5bSXRgYt7VdoUQg/x.FsvnIMXFxUkEG", // hashed password
           firstname: "John",
           lastname: "Doe",
           email: "john.doe@gmail.com",

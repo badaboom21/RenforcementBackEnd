@@ -1,6 +1,8 @@
 const { User } = require("../models");
 const bcrypt = require("bcrypt");
 
+const BCRYPT_SALT_ROUNDS = Number(process.env.BCRYPT_SALT_ROUNDS) || 12;
+
 const getAllUsers = async (req, res) => {
   const { role, active, email, username, firstname, lastname } = req.query;
   const where = {};
@@ -28,10 +30,17 @@ const getUser = async (req, res) => {
 
 const createUser = async (req, res) => {
   const { password, ...userData } = req.body;
-  const hashedPassword = await bcrypt.hash(password, 10);
+  if (!password) {
+    return res.status(400).json({ message: "Password is required" });
+  }
+
+  const hashedPassword = await bcrypt.hash(password, BCRYPT_SALT_ROUNDS);
   const user = await User.create({ ...userData, password: hashedPassword });
   res.status(201).json({
-    user,
+    user: {
+      ...user.get({ plain: true }),
+      password: undefined,
+    },
   });
 };
 
@@ -77,8 +86,15 @@ const changePassword = async (req, res) => {
   if (!user) {
     return res.status(404).json({ message: "User not found" });
   }
-  const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+  const { password } = req.body;
+  if (!password) {
+    return res.status(400).json({ message: "New password is required" });
+  }
+
+  const hashedPassword = await bcrypt.hash(password, BCRYPT_SALT_ROUNDS);
   await user.update({ password: hashedPassword });
+
   res.status(200).json({
     message: "Password changed successfully",
   });

@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
+const authMiddleware = require("../middlewares/auth");
 const { validateUsername } = require("../middlewares/user");
 const {
   getAllUsers,
@@ -11,6 +12,9 @@ const {
   deactivateUser,
   changePassword,
 } = require("../services/users");
+
+// require auth for all user management endpoints
+router.use(authMiddleware);
 
 router.get("/", getAllUsers);
 router.post("/", validateUsername, createUser);
