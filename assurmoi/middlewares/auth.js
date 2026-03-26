@@ -21,6 +21,10 @@ const authMiddleware = async (req, res, next) => {
       return res.status(403).json({ message: "User inactive or not found" });
     }
 
+    if (!user.token) {
+      return res.status(401).json({ message: "Token has been invalidated" });
+    }
+
     req.user = { id: user.id, role: user.role, email: user.email };
     next();
   } catch (error) {
