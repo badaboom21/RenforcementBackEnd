@@ -14,7 +14,7 @@ export default async function fetchData(
   useToken?: boolean,
 ) {
   const token = await AsyncStorage.getItem("token");
-  const endpoint = "https://prototype-bacon-willow.ngrok-free.dev";
+  const endpoint = "http://172.23.62.245:3000/api";
   const headers: Headers = {
     Accept: "application/json",
     "Content-type": "application/json",

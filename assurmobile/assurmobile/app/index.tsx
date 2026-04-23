@@ -27,8 +27,8 @@ export default function Index() {
   // }, [user]);
 
   useEffect(() => {
-    fetchData("/sinistres", "GET", {}, true).then((data) => {
-      setSinistres(data);
+    fetchData("/sinisters", "GET", {}, true).then((data) => {
+      setSinistres(data.sinisters);
       console.log("DATA LOADED ", data);
     });
   }, []);
