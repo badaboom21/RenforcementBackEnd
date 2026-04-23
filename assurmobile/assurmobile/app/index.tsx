@@ -1,8 +1,8 @@
 import { ScrollView, StyleSheet } from "react-native";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Redirect, useRootNavigationState, useRouter } from "expo-router";
 import { Button, Card, Text } from "react-native-paper";
-import { useCurrentUser } from "@/contexts/UserContext";
+import { UserContext } from "@/contexts/UserContext";
 import fetchData from "@/hooks/fetchData";
 
 type SinistreType = {
@@ -16,15 +16,7 @@ export default function Index() {
   const [sinistres, setSinistres] = useState<SinistreType[]>();
   const router = useRouter();
   const rootNavigationState = useRootNavigationState();
-  const user = useCurrentUser();
-
-  // useEffect(() => {
-  //   if (rootNavigationState?.key) return;
-
-  //   if (!user) {
-  //     router.replace("/login");
-  //   }
-  // }, [user]);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     fetchData("/sinisters", "GET", {}, true).then((data) => {
@@ -33,7 +25,10 @@ export default function Index() {
     });
   }, []);
 
+  console.log("USER : ", user);
+
   if (!user) {
+    console.log("REDIRECT....", user);
     return <Redirect href="/login" />;
   }
 
@@ -69,26 +64,6 @@ export default function Index() {
       </ScrollView>
     );
   }
-
-  // return (
-  //   <View
-  //     style={{
-  //       flex: 1,
-  //       justifyContent: "center",
-  //       alignItems: "center",
-  //     }}
-  //   >
-  //     <Text>To Edit this value : {value}.</Text>
-  //     <Pressable
-  //       onPress={() => {
-  //         onChangeTitle("new Value");
-  //       }}
-  //     >
-  //       <Text>Press on this link</Text>
-  //     </Pressable>
-  //     <Button onPress={() => router.navigate("/login")}>Se connecter</Button>
-  //   </View>
-  // );
 }
 
 const styles = StyleSheet.create({

@@ -5,6 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { UserContext } from "@/contexts/UserContext";
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from "expo-router";
+import fetchData from "@/hooks/fetchData";
 
 type JwtPayload = {
   user: {};
@@ -19,24 +20,18 @@ export default function LoginScreen() {
 
   const login = async () => {
     try {
-      const response = await fetch("http://172.23.62.245:3000/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          mot_de_passe,
-        }),
-      });
-      if (!response.ok) setError("Echec de connexion");
-      console.log("login : ", response);
-      const { token } = await response.json();
+      const { token } = await fetchData(
+        "/auth/login",
+        "POST",
+        { email, mot_de_passe },
+        false,
+      );
       console.log("token : ", token);
       await AsyncStorage.setItem("token", token);
-      const { user } = jwtDecode<JwtPayload>(token);
+      const user = jwtDecode<JwtPayload>(token);
+      console.log("user : ", user);
       setUser(user);
-      router.replace("/");
+      router.push({ pathname: "/" });
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "An unknown error occurred",

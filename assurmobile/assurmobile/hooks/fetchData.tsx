@@ -7,6 +7,8 @@ type Headers = {
   Authorization?: string;
 };
 
+const API_BASE_URL_CONST = "http://localhost:3000/api";
+
 export default async function fetchData(
   path: string,
   method: string,
@@ -14,12 +16,15 @@ export default async function fetchData(
   useToken?: boolean,
 ) {
   const token = await AsyncStorage.getItem("token");
-  const endpoint = "http://172.23.62.245:3000/api";
+  // const endpoint = "http://172.23.62.245:3000/api";
+  console.log("API BASE URL", API_BASE_URL_CONST);
+  console.log("API base URL 2", process.env);
+  const endpoint = API_BASE_URL_CONST;
   const headers: Headers = {
     Accept: "application/json",
     "Content-type": "application/json",
   };
-  if (token !== undefined) {
+  if (token !== undefined && useToken) {
     headers["Authorization"] = "Bearer " + token;
   }
   return fetch(endpoint + path, {

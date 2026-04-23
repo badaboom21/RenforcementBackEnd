@@ -750,6 +750,25 @@
       }
     },
     "/api/sinisters/{id}": {
+      "get": {
+        "summary": "Récupérer un sinistre",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sinistre trouvé"
+          }
+        },
+        "tags": ["sinisters"]
+      },
       "put": {
         "summary": "Modifier un sinistre",
         "parameters": [
