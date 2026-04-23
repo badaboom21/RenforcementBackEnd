@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Text, View } from "react-native";
 import { Button, Card, HelperText, TextInput } from "react-native-paper";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
@@ -21,6 +22,8 @@ export default function LoginScreen() {
       });
       if (!response.ok) setError("Echec de connexion");
       console.log("login : ", response);
+      const { token } = await response.json();
+      await AsyncStorage.setItem("token", token);
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "An unknown error occurred",
