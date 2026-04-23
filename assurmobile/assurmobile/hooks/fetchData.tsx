@@ -7,7 +7,10 @@ type Headers = {
   Authorization?: string;
 };
 
-const API_BASE_URL_CONST = "http://localhost:3000/api";
+console.log("API_BASE_URL", process.env.API_BASE_URL);
+
+const API_BASE_URL_CONST =
+  process.env.API_BASE_URL || "http://localhost:3000/api";
 
 export default async function fetchData(
   path: string,
