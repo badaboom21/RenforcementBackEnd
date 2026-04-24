@@ -224,7 +224,7 @@ export default function SinistreDetailScreen() {
             />
           </Menu>
           <Button mode="outlined" onPress={pickDocument}>
-            Fichier : ...
+            Fichier : {pickedFile ? pickedFile.name : "..."}
           </Button>
           <HelperText type="error" visible={Boolean(error)}>
             {error}
