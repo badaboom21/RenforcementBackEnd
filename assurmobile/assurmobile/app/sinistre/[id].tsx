@@ -6,6 +6,7 @@ import {
   Button,
   Card,
   HelperText,
+  List,
   Menu,
   Snackbar,
   Switch,
@@ -37,6 +38,16 @@ export default function SinistreDetailScreen() {
   const [typeMenuVisible, setTypeMenuVisible] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [successVisible, setSuccessVisible] = useState(false);
+  const [documents, setDocuments] = useState<
+    Array<{
+      id: number | string;
+      label?: string | null;
+      type: string;
+      path: string;
+      validated?: boolean;
+    }>
+  >([]);
+  const [documentsLoading, setDocumentsLoading] = useState(false);
   // gestion de mes erreurs
   const [error, setError] = useState<string | null>(null);
   console.log("SinistreDetailScreen : ", sinistre);
@@ -103,6 +114,19 @@ export default function SinistreDetailScreen() {
       .catch((err) => {
         console.log("Error on get sinistre " + err.message);
       });
+  }, [id]);
+
+  useEffect(() => {
+    if (!id) return;
+    setDocumentsLoading(true);
+    fetchData("/sinisters/" + id + "/documents", "GET", {}, true)
+      .then((data) => {
+        setDocuments(data.documents || []);
+      })
+      .catch((err) => {
+        console.log("Error on get sinister documents " + err.message);
+      })
+      .finally(() => setDocumentsLoading(false));
   }, [id]);
 
   console.log("SinistreDetailScreen apres fetch : ", sinistre);
@@ -201,6 +225,35 @@ export default function SinistreDetailScreen() {
           <Button onPress={submitForm}>Envoyer le document</Button>
         </Card.Content>
       </Card>
+
+      <Card>
+        <Card.Title title="Documents liés" />
+        <Card.Content>
+          {documentsLoading ? (
+            <Text>Chargement des documents...</Text>
+          ) : documents.length === 0 ? (
+            <Text>Aucun document lié à ce sinistre.</Text>
+          ) : (
+            <List.Section>
+              {documents.map((document) => (
+                <List.Item
+                  key={document.id}
+                  title={document.label || document.type}
+                  description={document.path}
+                  right={() =>
+                    document.validated !== undefined ? (
+                      <Text>
+                        {document.validated ? "Validé" : "En attente"}
+                      </Text>
+                    ) : null
+                  }
+                />
+              ))}
+            </List.Section>
+          )}
+        </Card.Content>
+      </Card>
+
       <Snackbar
         visible={successVisible}
         onDismiss={() => setSuccessVisible(false)}
