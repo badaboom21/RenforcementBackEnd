@@ -1,3 +1,5 @@
+###Jonathan Boulay
+
 pour lancer l'application : docker compose up -d
 
 Pour avoir accès au swagger : http://localhost:3000/api-docs/
@@ -15,4 +17,5 @@ mot de passe : AdminPass123
 
 <img width="604" height="404" alt="image" src="https://github.com/user-attachments/assets/64403ce4-c223-49c1-8683-694fa57cf504" />
 
-<img width="583" height="433" alt="image" src="https://github.com/user-attachments/assets/dc861920-bc84-45fd-975e-72daa30af9a4" />
+<img width="609" height="686" alt="image" src="https://github.com/user-attachments/assets/10a78859-06a1-464b-adce-1731fd42bed6" />
+
