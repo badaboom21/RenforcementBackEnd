@@ -17,5 +17,5 @@ mot de passe : AdminPass123
 
 <img width="604" height="404" alt="image" src="https://github.com/user-attachments/assets/64403ce4-c223-49c1-8683-694fa57cf504" />
 
-<img width="609" height="686" alt="image" src="https://github.com/user-attachments/assets/10a78859-06a1-464b-adce-1731fd42bed6" />
+<img width="540" height="806" alt="image" src="https://github.com/user-attachments/assets/ccf4f356-d7ad-4ea2-ac03-75a43ce6e13c" />
 
