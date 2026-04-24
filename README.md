@@ -32,6 +32,16 @@ SMTP_PASS=iyyf dcft eoji xvba
 
 Pour avoir accès au swagger : http://localhost:3000/api-docs/
 
+## Si l'appli ne se lance pas ou que vous avez l'erreur suivante : 
+
+2026-04-24 15:46:45 CommandError: failed to start tunnel
+2026-04-24 15:46:45 
+2026-04-24 15:46:45 session closed
+
+Alors supprimer dans le package.json dans le dossier assurmobile (le front) le --tunnel sur la ligne suivante : 
+    "start": "expo start --tunnel",
+Puis faire docker compose down, supprimer tous les containers sur docker puis faire docker compose up -d
+
 email : john.doe@gmail.com
 mot de passe : AdminPass123
 
