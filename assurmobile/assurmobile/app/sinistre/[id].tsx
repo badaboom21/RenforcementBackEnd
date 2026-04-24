@@ -8,7 +8,6 @@ import {
   HelperText,
   List,
   Menu,
-  Snackbar,
   Switch,
   Text,
   TextInput,
@@ -37,7 +36,6 @@ export default function SinistreDetailScreen() {
   const [documentType, setDocumentType] = useState("DIAGNOSTIC_REPORT");
   const [typeMenuVisible, setTypeMenuVisible] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
-  const [successVisible, setSuccessVisible] = useState(false);
   const [documents, setDocuments] = useState<
     Array<{
       id: number | string;
@@ -92,16 +90,34 @@ export default function SinistreDetailScreen() {
         .then((response) => {
           console.log(response);
           setSuccessMessage("Document transmis avec succès.");
-          setSuccessVisible(true);
+          setError(null);
+          // Recharger la liste des documents
+          loadDocuments();
+          // Masquer le message après 3 secondes
+          setTimeout(() => setSuccessMessage(null), 3000);
         })
         .catch((error) => {
           console.log(error);
           setError(error.message);
-          setSuccessVisible(false);
+          setSuccessMessage(null);
         });
     } else {
       setError("Pas de fichier sélectionné");
     }
+  };
+
+  // fonction de chargement des documents
+  const loadDocuments = () => {
+    if (!id) return;
+    setDocumentsLoading(true);
+    fetchData("/sinisters/" + id + "/documents", "GET", {}, true)
+      .then((data) => {
+        setDocuments(data.documents || []);
+      })
+      .catch((err) => {
+        console.log("Error on get sinister documents " + err.message);
+      })
+      .finally(() => setDocumentsLoading(false));
   };
 
   // fetch récupérer le sinistre courant
@@ -117,16 +133,7 @@ export default function SinistreDetailScreen() {
   }, [id]);
 
   useEffect(() => {
-    if (!id) return;
-    setDocumentsLoading(true);
-    fetchData("/sinisters/" + id + "/documents", "GET", {}, true)
-      .then((data) => {
-        setDocuments(data.documents || []);
-      })
-      .catch((err) => {
-        console.log("Error on get sinister documents " + err.message);
-      })
-      .finally(() => setDocumentsLoading(false));
+    loadDocuments();
   }, [id]);
 
   console.log("SinistreDetailScreen apres fetch : ", sinistre);
@@ -223,6 +230,9 @@ export default function SinistreDetailScreen() {
             {error}
           </HelperText>
           <Button onPress={submitForm}>Envoyer le document</Button>
+          <HelperText type="info" visible={Boolean(successMessage)}>
+            {successMessage}
+          </HelperText>
         </Card.Content>
       </Card>
 
@@ -253,14 +263,6 @@ export default function SinistreDetailScreen() {
           )}
         </Card.Content>
       </Card>
-
-      <Snackbar
-        visible={successVisible}
-        onDismiss={() => setSuccessVisible(false)}
-        duration={3000}
-      >
-        {successMessage}
-      </Snackbar>
     </ScrollView>
   );
 }
