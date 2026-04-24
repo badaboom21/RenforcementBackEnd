@@ -7,6 +7,7 @@ import {
   Card,
   HelperText,
   Menu,
+  Snackbar,
   Switch,
   Text,
   TextInput,
@@ -34,6 +35,8 @@ export default function SinistreDetailScreen() {
   const [documentLabel, setDocumentLabel] = useState("");
   const [documentType, setDocumentType] = useState("DIAGNOSTIC_REPORT");
   const [typeMenuVisible, setTypeMenuVisible] = useState(false);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [successVisible, setSuccessVisible] = useState(false);
   // gestion de mes erreurs
   const [error, setError] = useState<string | null>(null);
   console.log("SinistreDetailScreen : ", sinistre);
@@ -75,9 +78,15 @@ export default function SinistreDetailScreen() {
       }
       setError(null);
       fetchDocument("/sinisters/" + id + "/documents", "POST", formData, true)
-        .then((response) => console.log(response))
+        .then((response) => {
+          console.log(response);
+          setSuccessMessage("Document transmis avec succès.");
+          setSuccessVisible(true);
+        })
         .catch((error) => {
-          (console.log(error), setError(error.message));
+          console.log(error);
+          setError(error.message);
+          setSuccessVisible(false);
         });
     } else {
       setError("Pas de fichier sélectionné");
@@ -192,6 +201,13 @@ export default function SinistreDetailScreen() {
           <Button onPress={submitForm}>Envoyer le document</Button>
         </Card.Content>
       </Card>
+      <Snackbar
+        visible={successVisible}
+        onDismiss={() => setSuccessVisible(false)}
+        duration={3000}
+      >
+        {successMessage}
+      </Snackbar>
     </ScrollView>
   );
 }
