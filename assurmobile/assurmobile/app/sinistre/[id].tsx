@@ -6,6 +6,7 @@ import {
   Button,
   Card,
   HelperText,
+  Menu,
   Switch,
   Text,
   TextInput,
@@ -31,6 +32,8 @@ export default function SinistreDetailScreen() {
     useState<DocumentPicker.DocumentPickerAsset | null>(null);
   // store pour le libellé du document
   const [documentLabel, setDocumentLabel] = useState("");
+  const [documentType, setDocumentType] = useState("DIAGNOSTIC_REPORT");
+  const [typeMenuVisible, setTypeMenuVisible] = useState(false);
   // gestion de mes erreurs
   const [error, setError] = useState<string | null>(null);
   console.log("SinistreDetailScreen : ", sinistre);
@@ -54,6 +57,7 @@ export default function SinistreDetailScreen() {
   const submitForm = () => {
     const formData = new FormData();
     formData.append("label", documentLabel);
+    formData.append("type", documentType);
     if (pickedFile) {
       if (Platform.OS === "web") {
         // cas de la version web
@@ -127,6 +131,58 @@ export default function SinistreDetailScreen() {
             label="Libellé du document"
             onChangeText={setDocumentLabel}
           />
+          <Menu
+            visible={typeMenuVisible}
+            onDismiss={() => setTypeMenuVisible(false)}
+            anchor={
+              <Button mode="outlined" onPress={() => setTypeMenuVisible(true)}>
+                Type : {documentType}
+              </Button>
+            }
+          >
+            <Menu.Item
+              onPress={() => {
+                setDocumentType("CNI_DRIVER");
+                setTypeMenuVisible(false);
+              }}
+              title="CNI conducteur"
+            />
+            <Menu.Item
+              onPress={() => {
+                setDocumentType("VEHICLE_REGISTRATION_CERTIFICATE");
+                setTypeMenuVisible(false);
+              }}
+              title="Certificat d'immatriculation"
+            />
+            <Menu.Item
+              onPress={() => {
+                setDocumentType("INSURANCE_CERTIFICATE");
+                setTypeMenuVisible(false);
+              }}
+              title="Certificat d'assurance"
+            />
+            <Menu.Item
+              onPress={() => {
+                setDocumentType("DIAGNOSTIC_REPORT");
+                setTypeMenuVisible(false);
+              }}
+              title="Rapport de diagnostic"
+            />
+            <Menu.Item
+              onPress={() => {
+                setDocumentType("CONTRACTOR_INVOICE");
+                setTypeMenuVisible(false);
+              }}
+              title="Facture d'entrepreneur"
+            />
+            <Menu.Item
+              onPress={() => {
+                setDocumentType("INSURED_RIB");
+                setTypeMenuVisible(false);
+              }}
+              title="RIB de l'assuré"
+            />
+          </Menu>
           <Button mode="outlined" onPress={pickDocument}>
             Fichier : ...
           </Button>

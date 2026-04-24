@@ -57,7 +57,6 @@ export async function fetchDocument(
   const endpoint = API_BASE_URL_CONST;
   const headers: Headers = {
     Accept: "application/json",
-    "Content-type": "multipart/form-data",
   };
   if (token !== undefined && useToken) {
     headers["Authorization"] = "Bearer " + token;

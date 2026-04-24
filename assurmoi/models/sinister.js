@@ -24,6 +24,10 @@ const Sinister = (dbInstance, DataTypes) => {
         foreignKey: "sinister_id",
         as: "histories",
       });
+      this.hasMany(models.Document, {
+        foreignKey: "sinister_id",
+        as: "documents",
+      });
     }
   }
 

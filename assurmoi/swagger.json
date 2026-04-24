@@ -914,7 +914,52 @@
       }
     },
     "/api/sinisters/{id}/documents": {
-      "patch": {
+      "get": {
+        "summary": "Récupérer tous les documents liés à un sinistre",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Liste des documents",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "documents": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": { "type": "integer" },
+                          "type": { "type": "string" },
+                          "label": { "type": "string" },
+                          "path": { "type": "string" },
+                          "validated": { "type": "boolean" },
+                          "sinister_id": { "type": "integer" }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Sinistre non trouvé"
+          }
+        },
+        "tags": ["sinisters"]
+      },
+      "post": {
         "summary": "Associer ou remplacer les documents du sinistre",
         "parameters": [
           {
