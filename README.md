@@ -1,4 +1,4 @@
-###Jonathan Boulay
+### Jonathan Boulay
 
 pour lancer l'application : docker compose up -d
 
