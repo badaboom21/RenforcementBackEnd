@@ -2,11 +2,35 @@
 
 pour lancer l'application : docker compose up -d
 
-Pour avoir accès au swagger : http://localhost:3000/api-docs/
+Installer les librairy : 
+ - docker compose run app-assurmoi-app npm i
+ - docker compose run app-assurmoi-node npm i
 
 Pour la bdd : 
  - docker compose run app-assurmoi-node npx sequelize-cli db:migrate
  - docker compose run app-assurmoi-node npx sequelize-cli db:seed:all
+
+pour le .env dans assurmoi, tester avec ces variables : 
+
+PORT=3000
+
+DB_USERNAME=root
+DB_PASSWORD=root
+DB_HOST=db
+DB_PORT=3306
+DB_NAME=assurmoidb
+
+JWT_SECRET=Jd5ixcrtQQ0HdQw/Z8Zek/GayWSnT359VgBccHUiUA4=
+JWT_EXPIRES_IN=1h
+BCRYPT_SALT_ROUNDS=12
+CORS_ORIGINS=http://localhost:3000,http://localhost:8081
+
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=jojolagrig@gmail.com
+SMTP_PASS=iyyf dcft eoji xvba 
+
+Pour avoir accès au swagger : http://localhost:3000/api-docs/
 
 email : john.doe@gmail.com
 mot de passe : AdminPass123
